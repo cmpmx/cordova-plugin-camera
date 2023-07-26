@@ -246,7 +246,14 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                         return new String[]{ Manifest.permission.CAMERA, Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO };
                 }
             }
-        } else {
+        } else if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            if (storageOnly) {
+                return new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
+            } else {
+                return new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+            }
+        }
+        else {
             if (storageOnly) {
                 return new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
             } else {
